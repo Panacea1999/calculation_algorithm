@@ -1,0 +1,26 @@
+<launch>
+<!-- set node name and subscribed image topic -->
+  <param name="use_sim_time" value="true"/>
+  <arg name="node_name" default="vision_tracking" />
+  <arg name="rgb_topic_sub" default="/camera/left/image_raw" />   <!-- image_rect_color -->
+  <arg name="thermal_topic_sub" default="/optris/image_raw" />
+<!-- set rgb and thermal image tracking enable flag -->
+  <arg name="rgb_tracking_flag" default="true" />
+  <arg name="thermal_tracking_flag" default="false" />
+<!-- set pulished topic names -->
+  <arg name="rgb_topic_pub" default = "~rgb_image" />
+  <arg name="thermal_topic_pub" default = "~thermal_image" />
+  <arg name="rgb_detected_topic_pub" default = "~rgb_detected_full" />
+  <arg name="thermal_detected_topic_pub" default = "~thermal_detected_full" />
+
+  <node pkg="vision_tracking" type="tracking.py" name="$(arg node_name)" output="screen" >
+    <param name="rgb_topic" value="$(arg rgb_topic_sub)" />
+    <param name="thermal_topic" value="$(arg thermal_topic_sub)" />
+    <param name="rgb_tracking_flag" value="$(arg rgb_tracking_flag)" />
+    <param name="thermal_tracking_flag" value="$(arg thermal_tracking_flag)" />
+    <param name="rgb_topic_pub" value = "$(arg rgb_topic_pub)" />
+    <param name="thermal_topic_pub" value = "$(arg thermal_topic_pub)" />
+    <param name="rgb_detected_topic_pub" value = "$(arg rgb_detected_topic_pub)" />
+    <param name="thermal_detected_topic_pub" value = "$(arg thermal_detected_topic_pub)" />
+  </node>
+</launch>
